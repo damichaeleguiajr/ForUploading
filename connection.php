@@ -2,7 +2,7 @@
 
 	$hostname = "localhost";
 	$username = "u671731253_ekb";
-	$password = "081093daj";
+	$password = "081093dan";
 	$dbname = "u671731253_ekb";
 	$error = "Cannot connect to the database..";
 
