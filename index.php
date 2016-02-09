@@ -116,7 +116,7 @@ if(isset($_POST['subreg'])){
         $result = itexmo($mnumber,"Hi Gracelyn :) I LOVE YOU by Dan Michael Eguia Jr. text mo ko :) pag gumana :)","091683346637PH8MPZ9");
 
       }else{
-        $result = itexmo($mnumber,"Test Message by Dan Michael Eguia Jr.","091683346637PH8MPZ9");
+        $result = itexmo($mnumber,"You are now registered to Ehkasibata.","09357991114QMURDYYP");
       }
 
     }else{
