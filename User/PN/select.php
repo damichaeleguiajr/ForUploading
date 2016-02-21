@@ -68,7 +68,7 @@ if(isset($_POST['packageid'])){
                 </div>
                 <hr>
                 <div>
-                    <span>Total Package Price:</span> Php <input type='text' class='asd' value='".number_format($priceThis,2)."' readonly>
+                    <span>Total Package Price:</span> Php <input type='text' class='asd' name='totalamount' value='".number_format($priceThis,2)."' readonly>
                 </div>
               </div>";
         echo "<div class='col-lg-12' style='padding-top:20px' align='center'>
