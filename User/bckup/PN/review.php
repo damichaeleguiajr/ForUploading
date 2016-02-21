@@ -48,7 +48,7 @@ if(isset($_POST['Proceed'])){
         if($qry){
             $script = "<script language=javascript>alert(\"Request Sent. Please wait 6hrs-12hrs to confirm your request. A text message will be send to you by the Administrator before you proceed to Billing. Thank You\");</script>";
             echo $script;
-            $sms = itexmo("09357991114","1 Reservation request from ".$contactname,"099969793775_A42L5");
+            $sms = itexmo("09357991114","1 Reservation request from ".$contactname,"091683346637PH8MPZ9");
             echo $sms;
             $page = "<script language=javascript>location.href='billing.php'</script>";
             echo $page;
@@ -85,7 +85,7 @@ if(isset($_POST['Proceed'])){
         if($qry){
             $script = "<script language=javascript>alert(\"Request Sent. Please wait 6hrs-12hrs to confirm your request. A text message will be send to you by the Administrator before you proceed to Billing. Thank You\");</script>";
             echo $script;
-            $sms = itexmo("09357991114","1 Reservation request from ".$contactname,"099969793775_A42L5");
+            $sms = itexmo("09357991114","1 Reservation request from ".$contactname,"091683346637PH8MPZ9");
             echo $sms;
             $page = "<script language=javascript>location.href='billing.php'</script>";
             echo $page;
@@ -123,7 +123,7 @@ if(isset($_POST['Proceed'])){
         if($qry){
             $script = "<script language=javascript>alert(\"Request Sent. Please wait 6hrs-12hrs to confirm your request. A text message will be send to you by the Administrator before you proceed to Billing. Thank You\");</script>";
             echo $script;
-            $sms = itexmo("09357991114","1 Reservation request from ".$contactname,"099969793775_A42L5");
+            $sms = itexmo("09357991114","1 Reservation request from ".$contactname,"091683346637PH8MPZ9");
             echo $sms;
             $page = "<script language=javascript>location.href='billing.php'</script>";
             echo $page;

@@ -17,12 +17,9 @@ body {
 }
 .forbody{
   background-color:#fff;
-  margin-top: -20px;
-  padding-top: 2px;
   padding-bottom: 20px;
   padding-left: 5px;
   padding-right: 5px;
-  background-image: url("../images/background-con.png");
 }
 .hero-spacer {
     margin-top: 50px;

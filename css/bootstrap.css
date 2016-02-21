@@ -3,6 +3,16 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ .package-note-background {
+  background-color: #96f;
+  margin-bottom: 10px;
+  border-radius: 2px;
+ }
+ .note-background{
+  background-color: #9999ff;
+  margin-bottom: 10px;
+  border-radius: 2px;
+ }
  .alert-box {
   color:#555;
   border-radius:10px;
@@ -3716,6 +3726,12 @@ fieldset[disabled] .btn-success.active {
   color: #5cb85c;
   background-color: #fff;
 }
+.info {
+  color: #fff;
+  background-color: #5bc0de;
+  border-color: #46b8da;
+  border-radius: 2px;
+}
 .btn-info {
   color: #fff;
   background-color: #5bc0de;
@@ -6318,16 +6334,16 @@ button.close {
   outline: 0;
 }
 .modal.fade .modal-dialog {
-  -webkit-transition: -webkit-transform .3s ease-out;
-       -o-transition:      -o-transform .3s ease-out;
-          transition:         transform .3s ease-out;
+  -webkit-transition: -webkit-transform .001s ease-out;
+       -o-transition:      -o-transform .001s ease-out;
+          transition:         transform .001s ease-out;
   -webkit-transform: translate(0, -25%);
       -ms-transform: translate(0, -25%);
        -o-transform: translate(0, -25%);
           transform: translate(0, -25%);
 }
 .modal.in .modal-dialog {
-  -webkit-transform: translate(0, 0);
+  -webkit-transform: translate(0, -100%);
       -ms-transform: translate(0, 0);
        -o-transform: translate(0, 0);
           transform: translate(0, 0);
@@ -6419,7 +6435,8 @@ button.close {
   padding-bottom: 30px;
 }
 .scroll{
-  overflow-y: scroll;
+  overflow-y: auto;
+  text-align: left;
 }
 @media (min-width: 768px) {
   .modal-dialog {

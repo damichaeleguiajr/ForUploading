@@ -187,7 +187,7 @@ $result = $qry;
                     ?>
                     <div style = 'font-size:20px' align = 'center'>
                       <div class='panel-heading'>
-                        <h3>Event Information</h3>
+                        <h3><span>STEP 1:</span>  Event Information</h3>
                       </div>
                       <div class=''>
                         <form class='form-horizontal' role='form' action = 'process1.php' method = 'POST' enctype="multipart/form-data" id='processone' onsubmit="setFormSubmitting()">
@@ -210,7 +210,7 @@ $result = $qry;
                           <div class='form-group internal'>
                             <label class='control-label col-md-3 col-md-offset-2' for='event'>Event</label>
                             <div class='col-md-6'>
-                              <div class='col-md-6'>
+                              <div class='col-md-7'>
                                 <div class='form-group internal' align="left">
                                   <select class='form-control' name = "type" id='event_list' onchange="eventlist()" required>
                                     <option id = "0" value="">-- Select Event --</option>
@@ -222,7 +222,7 @@ $result = $qry;
                                     <option id = "<?php echo $eventview['e_id']; ?>"><?php echo $eventview['e_name']; ?></option>
                                     <?php } ?>
                                   </select>
-                                  <div class='notice col-lg-12'><img src='../images/notification/notice.png'><span>Note: </span>Party theme is available only in Birthday Party</div>
+                                  <span style='color:red'><p style='font-size:15px'>Note: Party theme is available only in Birthday Party</p></span>
                                 </div>
                               </div>
                             </div>

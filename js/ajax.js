@@ -110,16 +110,11 @@ $('.recommendedcreate').click(function(){
 $('.forselect').click(function(){
 	var selectedpackage = $(this).attr('value');
     (function(){
-                var myDiv = document.getElementById("allpackageload");
                 var show = function(){
-                $('#table-hide').attr('class','hide');
-                $('.forcreate').attr('class','hide');
-                myDiv.setAttribute("class", "form-group");
                 setTimeout(hide, 800);  // 5 seconds
                 }
                 var hide = function(){
                 $.post('selectedpackage.php',{ packageid:selectedpackage },function(data){
-                    myDiv.setAttribute("class", "hide");
                     $('#allpackageselect').html(data);
                 });
                 }
