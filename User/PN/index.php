@@ -221,6 +221,9 @@ if(isset($_SESSION['motif'])){
                             </div>
                         </section>
                         <section id="section-underline-2">
+                            <div id='budgetmany'>
+                            </div>
+                            <div id='forbudget'>
                             <div class='col-lg-12' align='left' style='background-color: #f0f0f0;font-size: 25px;'>
                                 <label>Sort by:</label>
                                 <select style='margin-left: 10px;margin-top: 15px; font-size: 20px;' id='sorting'>
@@ -346,6 +349,7 @@ if(isset($_SESSION['motif'])){
                                                 }
                                         ?>
                                 </ul>
+                                </div>
                         </section>
                     </div><!-- /content -->
                 </div><!-- /tabs -->
@@ -363,6 +367,11 @@ if(isset($_SESSION['motif'])){
                             <label clas='form-label col-md-offset-2'>Please Input Your Budget.</label>
                         </div>
                         <input class='form-control' type='text' id='inputbudget' name='budget' required><span style='color:red;display:inline'>* Required</span>
+                        <div class='col-lg-12' style='background-color: #96f' align='center'>
+                            <p style='padding-top: 20px;color:#fff'>Please select a package.</p>
+                            <p style='color: #fff'>All packages are shown depending on what amount you input.</p>
+                            <a class='btn btn-danger' id='cancelme'>Cancel</a>
+                        </div>
                     </div>
                 </div>
                 <div class='col-lg-6 info' align='center' id='budgeting'>

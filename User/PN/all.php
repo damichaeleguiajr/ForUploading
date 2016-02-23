@@ -4,9 +4,8 @@
 include('../../connection.php');
 	if(isset($_POST['budget'])){
 		$budget = $_POST['budget'];
-		$type = $_POST['type'];
 		if($budget != ''){
-			$thisqry = mysql_query("SELECT * FROM packages_tbl WHERE pk_category = '$type' and pk_price <= '$budget'");
+			$thisqry = mysql_query("SELECT * FROM packages_tbl WHERE pk_price <= '$budget' ORDER BY 'pk_price'");
 			if(mysql_num_rows($thisqry) > 0){
 			echo "<ul id='toggle-view' class='scroll containspackages'>";
                 while($etopo = mysql_fetch_array($thisqry)){
@@ -44,7 +43,7 @@ include('../../connection.php');
                 }
         	echo "</ul>";
         	} else {
-        		$qry = mysql_query("SELECT * FROM packages_tbl WHERE pk_price = (SELECT MIN(pk_price) FROM packages_tbl WHERE pk_category = '$type')");
+        		$qry = mysql_query("SELECT * FROM packages_tbl WHERE pk_price = (SELECT MIN(pk_price) FROM packages_tbl)");
 					while($row = mysql_fetch_array($qry)){
 						echo "<p style='color:#C8C8C8;font-size:25px'>Minimum package price offer is Php".number_format($row['pk_price'], 2)."</p>";
 					}

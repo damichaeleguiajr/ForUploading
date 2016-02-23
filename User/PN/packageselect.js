@@ -1,3 +1,27 @@
+$('#cancelme').click(function(){
+    location.reload();
+});
+$('#inputbudget').keypress(function(){
+    if ( event.keyCode == 46 || event.keyCode == 8) {
+            // let it happen, don't do anything
+           
+        } else {
+            // Ensure that it is a number and stop the keypress
+            if ((event.keyCode !==9) && (event.keyCode < 48 || event.keyCode > 57 )) {
+                event.preventDefault(); 
+            }   
+                else{
+                 
+              if($.trim($(this).val()) =='')
+            {
+                if(event.keyCode == 48){
+                event.preventDefault(); 
+                }
+            }
+                    
+            }
+        }
+});
 $('#badyet').click(function(){
     $('#budgeting').hide('slide', { direction:'left' }, 400);
     setTimeout(hide,300);
@@ -10,6 +34,11 @@ $('#badyet').click(function(){
             $.post('budgeting.php',{ budget:budget,type:type },function(data){
                 $('#budgeted').html(data).show();
                 $('#notbudget').hide();
+                
+            });
+            $.post('all.php',{ budget:budget },function(data){
+                $('#budgetmany').html(data).show();
+                $('#forbudget').hide();
                 
             });
     });
