@@ -78,6 +78,18 @@ $('#myBudget').on('keyup','input.qty',function(){
             remeyning = accounting.formatMoney(maynus);
             $('#remainingbudget').val(remeyning);
             $('#trueamount').val(forSum);
+            checkbudget = $('#remainingbudget').val();
+            if(checkbudget < '0'){
+                $('#warning').show();
+            } else {
+                $('#warning').hide();
+            }
+                        var truetotal = $('#trueamount').val();
+                        if(truetotal < '500'){
+                            $('.totalthisnow').prop('disabled', true);
+                        } else {
+                            $('.totalthisnow').prop('disabled', false);
+                        }
     });
 });
 $('#myBudget').on('click','input.qtyplus',function(e){
@@ -127,22 +139,18 @@ $('#myBudget').on('click','input.qtyplus',function(e){
                     $('span[count='+countName+']').hide();
                     $('span[color='+countName+']').css("color","");
                 }
+                $('#warning').hide();
             } else {
-                var r = confirm('Not enough budget. Do you want to continue? Clicking "Ok" button will remove your budget and continue.');
-                if(r==true){
 
-                } else {
-                    $('input[id='+fieldName+']').val(currentVal - 0);
-                    var newTotal = $('input[id='+fieldName+']').val();
-                    $('input[id='+countName+']').val(newTotal*priceName);
-                    $('input[id='+countName+']').attr('value',newTotal*priceName);
-                    lagaymotoo = accounting.formatMoney(budgetcheck+priceName);
-                    lagaymotree = accounting.formatMoney(forSum-priceName);
-                    $('#remainingbudget').val(lagaymotoo);
-                    $('.totalthisnow').val(lagaymotree);
-                    $('#trueamount').val(forSum);
-                }
+                $('#warning').show();
+                    
             }
+                        var truetotal = $('#trueamount').val();
+                        if(truetotal < '500'){
+                            $('.totalthisnow').prop('disabled', true);
+                        } else {
+                            $('.totalthisnow').prop('disabled', false);
+                        }
         });
 
     } else {
@@ -194,6 +202,18 @@ $('#myBudget').on('click','input.qtyminus',function(f){
             remeyning = accounting.formatMoney(maynus);
             $('#remainingbudget').val(remeyning);
             $('#trueamount').val(forSum);
+            checkbudget = $('#remainingbudget').val();
+            if(checkbudget < '0'){
+                $('#warning').show();
+            } else {
+                $('#warning').hide();
+            }
+                        var truetotal = $('#trueamount').val();
+                        if(truetotal < '500'){
+                            $('.totalthisnow').prop('disabled', true);
+                        } else {
+                            $('.totalthisnow').prop('disabled', false);
+                        }
     });
 });
 $('.qty').each(function() {
@@ -228,14 +248,21 @@ $("#myBudget").on("click","button.deleteme", function() {
             remeyning = accounting.formatMoney(maynus);
             $('#remainingbudget').val(remeyning);
             $('#trueamount').val(forSum);
+            checkbudget = $('#remainingbudget').val();
+            if(checkbudget < '0'){
+                $('#warning').show();
+            } else {
+                $('#warning').hide();
+            }
+                        var truetotal = $('#trueamount').val();
+                        if(truetotal < '500'){
+                            $('.totalthisnow').prop('disabled', true);
+                        } else {
+                            $('.totalthisnow').prop('disabled', false);
+                        }
     });
     if(countTR == '2'){
     	$('.totalthisnow').val(0);
-    }
-    if($('.totalthisnow').val() > 500){
-            $('.proceedcustomize').prop('disabled',false);
-    } else {
-            $('.proceedcustomize').prop('disabled',true);
     }
 })
 $('#myModalAdd').on("click","button.forAddContent", function(){
@@ -275,6 +302,18 @@ $('#myModalAdd').on("click","button.forAddContent", function(){
             remeyning = accounting.formatMoney(maynus);
             $('#remainingbudget').val(remeyning);
             $('#trueamount').val(forSum);
+            checkbudget = $('#remainingbudget').val();
+            if(checkbudget < '0'){
+                $('#warning').show();
+            } else {
+                $('#warning').hide();
+            }
+                        var truetotal = $('#trueamount').val();
+                        if(truetotal < '500'){
+                            $('.totalthisnow').prop('disabled', true);
+                        } else {
+                            $('.totalthisnow').prop('disabled', false);
+                        }
     	});
         $('#myModalAdd').modal('hide');
     }
@@ -325,18 +364,25 @@ $("#myBudget").on("click","button.modalnow", function() {
                             maynus = (allbudget-forSum);
                             remeyning = accounting.formatMoney(maynus);
                             $('#remainingbudget').val(remeyning);
+                            var truetotal = $('#trueamount').val();
                         $('#trueamount').val(forSum);
+                        checkbudget = $('#remainingbudget').val();
+                        if(checkbudget < '0'){
+                            $('#warning').show();
+                        } else {
+                            $('#warning').hide();
+                        }
+                        if(truetotal < '500'){
+                            $('.totalthisnow').prop('disabled', true);
+                        } else {
+                            $('.totalthisnow').prop('disabled', false);
+                        }
                     });
                     $('#myModal').modal('hide');
                 }
             });
         return true;
 });
-if($('.totalthisnow').val() > 500){
-    $('.proceedcustomize').prop('disabled',false);
-} else {
-    $('.proceedcustomize').prop('disabled',true);
-}
 var forSum = 0;
     $('.qty1').each(function() {
         forSum += Number($(this).val().match(/\d+/));

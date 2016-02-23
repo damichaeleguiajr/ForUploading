@@ -78,15 +78,18 @@ if(isset($_POST['packageid'])){
                 <button class='btn btn-success btn-lg forAddNow' type = 'button' data-toggle='modal' data-target='#myModalAdd'><span class='fa fa-plus-square'></span> Add Item</button>
               </div>
               <div class='col-lg-12' align='right' style='margin-left:45px;margin-top:20px;'>
+                <div class='col-lg-12' align='center' style='margin-right:440px;border-radius:2px;display:none' id='warning'>
+                    <label style='border-radius:5px;'><p style='font-weight:bold;color:white;background-color:red;padding-right:40px;padding-left:40px;'>Total package price exceeds to your budget</p></label>
+                </div>
                 <hr>
-                <div>
+                <div id='budgetshow1'>
                     <span>Budget:</span> Php <input type='text' class='asd allbudget' value='".number_format($budget,2)."' readonly>
                 </div>
                 <div>
                     <span>Total Package Price:</span> Php <input type='text' class='asd totalthisnow' value='".number_format($itemOriginal,2)."' readonly>
                     <input style='display:none' name='totalamount' value='' id='trueamount'>
                 </div>
-                <div>
+                <div id='budgetshow2'>
                     <span>Remaining Budget:</span> Php <input type='text' class='asd' id='remainingbudget' value='".number_format($budget-$priceThis,2)."' readonly>
                 </div>
               </div>";
