@@ -451,9 +451,8 @@
                 var changingValue = $(this).attr('id');
                 var idPrice = $(this).attr('idPrice');
                 var checkMe = $("#budgetTable").find('input[forChange='+selectChange+']');
-                var kuninbadyet = parseInt($('.remainingbudget').val());
-                var bawasbadyet = kuninbadyet+presyopapalitan;
-                var badyeting = bawasbadyet-idPrice;
+                budgetcheck = parseInt($('#remainingbudget').val());
+                alert(budgetcheck);
                 if(checkMe.length == 1){
                     alertpagmeron();
                 } else {

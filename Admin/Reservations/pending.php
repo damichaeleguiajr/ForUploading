@@ -34,7 +34,7 @@ if(isset($_POST['accept'])){
       return curl_exec ($ch);
       curl_close ($ch);
       }
-      $sms = itexmo($mnumber,"Reservation accepted. You can now pay/deposit at any BDO BRANCH NATIONWIDE.Account #:3213 4321 4322 3252. Thank You.","091683346637PH8MPZ9");
+      $sms = itexmo($mnumber,"Reservation accepted. You can now pay/deposit at any BDO BRANCH NATIONWIDE.Account #:3213 4321 4322 3252. Thank You.","099969793775_A42l5");
       echo $sms;
   }
   if($qry){
@@ -60,7 +60,7 @@ if(isset($_POST['decline'])){
       return curl_exec ($ch);
       curl_close ($ch);
       }
-      $sms = itexmo($mnumber,"Sorry your reservation is declined/rejected by the Administrator due to wrong input. Thank you.","091683346637PH8MPZ9");
+      $sms = itexmo($mnumber,"Sorry your reservation is declined/rejected by the Administrator due to wrong input. Thank you.","099969793775_A42l5");
       echo $sms;
   }
   if($qry){

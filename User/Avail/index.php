@@ -34,6 +34,7 @@ $result = $qry;
         $uploadedpic = $_SESSION['uploadedpic'];
         $_SESSION['uploadedpic'] = $uploadedpic;
     }
+
 }else{
     header('location:../index.php');
 }
@@ -164,20 +165,22 @@ $result = $qry;
                         <div class='div-header'>
                             <label clas='form-label col-md-offset-2'>Please Input Your Budget.</label>
                         </div>
-                        <input class='form-control' type='text' id='inputbudget' originalvalue=''>
+                        <input class='form-control' type='text' id='inputbudget' name='budget' required><span style='color:red;display:inline'>* Required</span>
                     </div>
                     <div class='form-group'>
                         <div class='div-header'>
                             <label clas='form-label col-md-offset-2'>Estimated Number of Guest Attending.</label>
                         </div>
-                        <input class='form-control' type='text' id='numberguest' required><span style='color:red;display:inline'>* Required</span>
-                    <div class='form-group display-none' style='padding-top: 5px;' id='forkids'>
+                        <input class='form-control' type='text' id='numberguest' min='0' required name='guest'><span style='color:red;display:inline'>* Required</span>
+                        <label style='font-size: 18px' id='checkkids'><input type='checkbox' id='kids'>  Inlcude kids to the number of guest attending.</label>
+                    </div>
+                    <div class='form-group display-none' id='forkids'>
                         <div class='div-header'>
                             <label clas='form-label col-md-offset-2'>Please input the number of kids.</label>
                         </div>
-                        <input class='form-control' type='text' id='numberkids'>
-                    </div>
-                        <label class='display-none' style='font-size: 18px' id='checkkids'><input type='checkbox' id='kids'>  Inlcude kids to the number of guest attending.</label>
+                        <input style='width:30%' class='form-control' type='text' id='numberkids' name='kid' disabled>
+                        <label style='margin-left:40px;display:inline'>Adult count is: </label>
+                        <input style='width:30%' class='asd' type='text' id='numberadults' name='adult' readonly>
                     </div>
                     <div class='form-group'>
                         <div class='div-header'>
@@ -192,6 +195,7 @@ $result = $qry;
                             <tr>
                                 <td width='45$%'><label><input type='checkbox' class='category' id='category' for='chairs' required> Chairs</label></td>
                                 <td width='35%'><label><input type='checkbox' class='category' id='category' for='tableware' required> Tableware</label></td>
+                                <td width='35%'><label><input type='checkbox' class='category' id='category' for='tableware' required> Clothing</label></td>
                             </tr>
                             <tr>
                                 <td width='45%'><label><input type='checkbox' class='category' id='category' for='a-and-d' required> Audio/Visuals</label></td>
@@ -230,6 +234,28 @@ $result = $qry;
                         <table>
                             <?php
                                $qrytable = mysql_query("SELECT * FROM item_tbl WHERE i_category = 'Chair'");
+                               for($i=0;$i<2;$i++){
+                                echo "<tr>";
+                               }
+                               $column = 0;
+                               while($row = mysql_fetch_array($qrytable)){
+                                echo "<td width='40%'><label><input type='checkbox' class='item' id='".$row['i_id']."' name='item[]' value='".$row['i_name']."'> ".$row['i_name']." <span style='color:orange;display:inline'>(Php ".number_format($row['i_price'],2).")</span></label></td>";
+                                $column++;
+                                if($column == 2){
+                                    echo "</tr>";
+                                    $column = 0;
+                                }
+                               }
+                            ?>
+                        </table>
+                    </div>
+                    <div class='form-group display-none' id='tableware'>
+                        <div class='div-header'>
+                            <label clas='form-label col-md-offset-2'>Tables and Seats Clothing</label>
+                        </div>
+                        <table>
+                            <?php
+                               $qrytable = mysql_query("SELECT * FROM item_tbl WHERE i_category = 'Clothing'");
                                for($i=0;$i<2;$i++){
                                 echo "<tr>";
                                }

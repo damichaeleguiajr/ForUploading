@@ -1,106 +1,3 @@
-$('#badyet').click(function(){
-    $('#budgeting').hide('slide', { direction:'left' }, 400);
-    setTimeout(hide,300);
-    function hide(){
-        $('#budgetpackage').show('slide', { direction:'left' }, 400);
-    }
-    $('#inputbudget').keyup(function(){
-        var type = $('#forbudgettype').val();
-        var budget = $(this).val();
-            $.post('budgeting.php',{ budget:budget,type:type },function(data){
-                $('#budgeted').html(data).show();
-                $('#notbudget').hide();
-                
-            });
-    });
-});
-$('.forselectbudget').click(function(){
-    var budget = $('#inputbudget').val();
-    var selectedpackage = $(this).attr('value');
-    $('#budgetpackage').hide('slide', { direction:'left' }, 400);
-    $.post('selectwithbudget.php',{ packageid:selectedpackage,budget:budget },function(data){
-        $('#allpackageselect').html(data);
-        $('#allpackageselect').show('slide', {direction:'left'}, 500);
-    });
-});
-$('.cancelselectbudget').click(function(){
-    $('#allpackageselect').hide('slide', {direction:'left'}, 500);
-    setTimeout(show,400);
-    function show(){
-        $('#budgetpackage').show('slide', { direction:'left' }, 400);
-    }
-});
-$('.cancelselector').click(function(){
-    $('#allpackageselect').hide('slide', {direction:'left'}, 500);
-    setTimeout(show,400);
-    function show(){
-        $('#budgeting').show('slide', { direction:'left' }, 400);
-    }
-});
-$('.customizewithbudget').click(function(c){
-    c.preventDefault();
-    var budget = $(this).attr('budget');
-    var selectedpackage = $(this).attr('id');
-    $('#allpackageselect').hide();
-    $('#fullpage').hide();
-    function show(){
-        $('#loading').show();
-        setTimeout(hide,800);
-    }
-    function hide(){
-        $('#loading').hide();
-        $.post('customizewithbudget.php',{ packageid:selectedpackage,budget:budget },function(data){
-            $('#customizepackage').html(data);
-        });
-        $('#customizepackage').show();
-    }
-    show();
-    $('html, body').animate({ scrollTop: $('#tofocus').offset().top }, 'slow');
-});
-$('.customize').click(function(c){
-	c.preventDefault();
-	var selectedpackage = $(this).attr('id');
-	$('#allpackageselect').hide();
-	$('#fullpage').hide();
-	function show(){
-		$('#loading').show();
-		setTimeout(hide,800);
-	}
-	function hide(){
-		$('#loading').hide();
-	    $.post('customize.php',{ packageid:selectedpackage },function(data){
-	        $('#customizepackage').html(data);
-	    });
-		$('#customizepackage').show();
-	}
-	show();
-	$('html, body').animate({ scrollTop: $('#tofocus').offset().top }, 'slow');
-});
-$('.forselect').click(function(p){
-	p.preventDefault();
-	var selectedpackage = $(this).attr('value');
-	$('#budgeting').hide('slide', { direction:'left' }, 400);
-	$.post('select.php',{ packageid:selectedpackage },function(data){
-        $('#allpackageselect').html(data);
-        $('#allpackageselect').show('slide', {direction:'left'}, 500);
-    });
-});
-$('#sorting').change(function(){
-	var value = $(this).val();
-	if(value == 'pk_name'){
-		$('.name').attr('class','scroll containspackages name');
-		$('.price').attr('class','scroll containspackages hide price');
-		$('.event').attr('class','scroll containspackages hide event');
-	} if (value == 'pk_price'){
-		$('.name').attr('class','scroll containspackages hide name');
-		$('.price').attr('class','scroll containspackages price');
-		$('.event').attr('class','scroll containspackages hide event');
-	} if (value == 'pk_category'){
-		$('.name').attr('class','scroll containspackages hide name');
-		$('.price').attr('class','scroll containspackages hide price');
-		$('.event').attr('class','scroll containspackages event');
-	}
-});
 $('.cancelcustomize').click(function(c){
 	c.preventDefault();
 	var x = confirm('Are you sure you want to cancel customizing?');
@@ -119,7 +16,7 @@ $('.cancelcustomize').click(function(c){
 		$('html, body').animate({ scrollTop: $('#tofocus').offset().top }, 'slow');
 	}
 });
-$('#packageTable').on('keypress','input.qty',function(){
+$('#myBudget').on('keypress','input.qty',function(){
     if ( event.keyCode == 46 || event.keyCode == 8) {
             // let it happen, don't do anything
            
@@ -140,7 +37,7 @@ $('#packageTable').on('keypress','input.qty',function(){
             }
         }
 });
-$('#packageTable').on('keyup','input.qty',function(){
+$('#myBudget').on('keyup','input.qty',function(){
 	var ekbPrice = parseInt($(this).attr('equal'));//price
 	var QTYvalue = parseInt($(this).val());
 	var selfID = $(this).attr('count');
@@ -176,9 +73,14 @@ $('#packageTable').on('keyup','input.qty',function(){
         $('.originalvalue').val(originalround);
         rounded = accounting.formatMoney(forSum);
         $('.totalthisnow').val(rounded);
+        allbudget = $('.allbudget').val();
+            maynus = (allbudget-forSum);
+            remeyning = accounting.formatMoney(maynus);
+            $('#remainingbudget').val(remeyning);
+            $('#trueamount').val(forSum);
     });
 });
-$('#packageTable').on('click','input.qtyplus',function(e){
+$('#myBudget').on('click','input.qtyplus',function(e){
     // Get the field name
     e.preventDefault();
     fieldName = $(this).attr('field');
@@ -189,43 +91,66 @@ $('#packageTable').on('click','input.qtyplus',function(e){
 	// If is not undefined
     if (!isNaN(currentVal)) {
      	// Increment
-        $('input[id='+fieldName+']').val(currentVal + 1);
-     	var newTotal = $('input[id='+fieldName+']').val();
-        $('input[id='+countName+']').val(newTotal*priceName);
-        $('input[id='+countName+']').attr('value',newTotal*priceName);
-        var presyo = $('input[id='+countName+']').val().match(/\d+/);
-        if(parseInt(newTotal) >= '30'){
-        	value = (newTotal * priceName);
-        	discount = (value * 0.05);
-        	discounted = (value - discount);
-        	rounded = (Math.round(discounted));
-        	$('input[id='+countName+']').val(rounded);
-        	$('input[id='+countName+']').attr('value',rounded);
-        	$('span[count='+countName+']').show();
-        	$('span[display='+countName+']').hide();
-        	$('span[color='+countName+']').css("color","green");
-        } else {
-        	$('span[display='+countName+']').show();
-        	$('span[count='+countName+']').hide();
-        	$('span[color='+countName+']').css("color","");
-        }
+        var forSum = 0;
+        $('.qty1').each(function() {
+            forSum += Number($(this).val().match(/\d+/));
+            var fixed = $('.iLoveCode').attr("iLoveCode");
+            var recentPrice = $('.iLoveCode').attr("sameprice");
+            var originalround = accounting.formatMoney(forSum);
+            $('.originalvalue').val(originalround);
+            rounded = accounting.formatMoney(forSum);
+            $('.totalthisnow').val(rounded);
+            $('#trueamount').val(forSum);
+            allbudget = $('.allbudget').val();
+            maynus = (allbudget-forSum);
+            remeyning = accounting.formatMoney(maynus);
+            $('#remainingbudget').val(remeyning);
+            budgetcheck = parseInt($('#remainingbudget').val());
+            if(budgetcheck > '0'){
+                $('input[id='+fieldName+']').val(currentVal + 1);
+                var newTotal = $('input[id='+fieldName+']').val();
+                $('input[id='+countName+']').val(newTotal*priceName);
+                $('input[id='+countName+']').attr('value',newTotal*priceName);
+                var presyo = $('input[id='+countName+']').val().match(/\d+/);
+                if(parseInt(newTotal) >= '30'){
+                    value = (newTotal * priceName);
+                    discount = (value * 0.05);
+                    discounted = (value - discount);
+                    rounded = (Math.round(discounted));
+                    $('input[id='+countName+']').val(rounded);
+                    $('input[id='+countName+']').attr('value',rounded);
+                    $('span[count='+countName+']').show();
+                    $('span[display='+countName+']').hide();
+                    $('span[color='+countName+']').css("color","green");
+                } else {
+                    $('span[display='+countName+']').show();
+                    $('span[count='+countName+']').hide();
+                    $('span[color='+countName+']').css("color","");
+                }
+            } else {
+                var r = confirm('Not enough budget. Do you want to continue? Clicking "Ok" button will remove your budget and continue.');
+                if(r==true){
+
+                } else {
+                    $('input[id='+fieldName+']').val(currentVal - 0);
+                    var newTotal = $('input[id='+fieldName+']').val();
+                    $('input[id='+countName+']').val(newTotal*priceName);
+                    $('input[id='+countName+']').attr('value',newTotal*priceName);
+                    lagaymotoo = accounting.formatMoney(budgetcheck+priceName);
+                    lagaymotree = accounting.formatMoney(forSum-priceName);
+                    $('#remainingbudget').val(lagaymotoo);
+                    $('.totalthisnow').val(lagaymotree);
+                    $('#trueamount').val(forSum);
+                }
+            }
+        });
+
     } else {
         // Otherwise put a 0 there
         $('input[id='+fieldName+']').val(1);
     }
-    var forSum = 0;
-    $('.qty1').each(function() {
-        forSum += Number($(this).val().match(/\d+/));
-        var fixed = $('.iLoveCode').attr("iLoveCode");
-        var recentPrice = $('.iLoveCode').attr("sameprice");
-        var originalround = accounting.formatMoney(forSum);
-        $('.originalvalue').val(originalround);
-        rounded = accounting.formatMoney(forSum);
-        $('.totalthisnow').val(rounded);
-        $('#trueamount').val(forSum);
-    });
 });
-$('#packageTable').on('click','input.qtyminus',function(f){
+$('#myBudget').on('click','input.qtyminus',function(f){
     // Get the field name
     fieldName = $(this).attr('field');
     countName = $(this).attr('count');
@@ -264,6 +189,11 @@ $('#packageTable').on('click','input.qtyminus',function(f){
         $('.originalvalue').val(originalround);
         rounded = accounting.formatMoney(forSum);
         $('.totalthisnow').val(rounded);
+        allbudget = $('.allbudget').val();
+            maynus = (allbudget-forSum);
+            remeyning = accounting.formatMoney(maynus);
+            $('#remainingbudget').val(remeyning);
+            $('#trueamount').val(forSum);
     });
 });
 $('.qty').each(function() {
@@ -281,8 +211,8 @@ $('.qty').each(function() {
 		$('span[color='+tocheck+']').css("color","green");
 	}
 });
-$("#packageTable").on("click","button.deleteme", function() {
-	var countTR = $('#packageTable tr').length;
+$("#myBudget").on("click","button.deleteme", function() {
+	var countTR = $('#myBudget tr').length;
 	$(this).parent().parent().remove();
 	var forSum = 0;
     $('.qty1').each(function() {
@@ -293,9 +223,19 @@ $("#packageTable").on("click","button.deleteme", function() {
         $('.originalvalue').val(originalround);
         rounded = accounting.formatMoney(forSum);
         $('.totalthisnow').val(rounded);
+        allbudget = $('.allbudget').val();
+            maynus = (allbudget-forSum);
+            remeyning = accounting.formatMoney(maynus);
+            $('#remainingbudget').val(remeyning);
+            $('#trueamount').val(forSum);
     });
     if(countTR == '2'){
     	$('.totalthisnow').val(0);
+    }
+    if($('.totalthisnow').val() > 500){
+            $('.proceedcustomize').prop('disabled',false);
+    } else {
+            $('.proceedcustomize').prop('disabled',true);
     }
 })
 $('#myModalAdd').on("click","button.forAddContent", function(){
@@ -306,13 +246,13 @@ $('#myModalAdd').on("click","button.forAddContent", function(){
     var forCountId = $(this).attr('forCount');
     var forEqualId = parseInt($(this).attr('idPrice'));
     var itemID = $('tr[blinked='+idNow+']').length;
-    var countChild = parseInt($('#packageTable tr:last-child').attr('id'));
+    var countChild = parseInt($('#myBudget tr:last-child').attr('id'));
     var checkChild = $('tr[id='+countChild+']').attr('id');
     if(itemID >= '1'){
     	alert("Already in the list.\nPlease choose another item.");
     } else {
     	countChild = countChild+1;
-     	$('#packageTable').append(
+     	$('#myBudget').append(
         	'<tr id="'+countChild+'" blinked="'+idNow+'">'+'<td><input class="asd search" name="itemname[]" type="text" value="'+content+'" forChange="'+idNow+'" readonly></td>'+
             '<td class="centerthis"><input type="button" value="-" class="qtyminus maxwell fa fa-minus" field="'+forFieldId+'" count="'+forCountId+'" equal="'+forEqualId+'" forChangeId="'+countChild+'"> <input type="text" maxlength="3" value="1" class="qty" name="itemquantity[]" id="'+forFieldId+'" equal="'+forEqualId+'" field="'+forFieldId+'" count="'+forCountId+'" forChangeIdInput="'+countChild+'"> <input type="button" value="+" class="qtyplus maxwell fa fa-plus" field="'+forFieldId+'" count="'+forCountId+'" equal="'+forEqualId+'" forChangeId="'+countChild+'"></td>'+
             '<td><span>₱</span><input class="asd" size="4" style="width:50%;display:inline" value="'+forEqualId+'" id="'+countChild+'" priceChange="'+idNow+'" readonly></td>'+
@@ -330,11 +270,16 @@ $('#myModalAdd').on("click","button.forAddContent", function(){
 	        $('.originalvalue').val(originalround);
 	        rounded = accounting.formatMoney(forSum);
 	        $('.totalthisnow').val(rounded);
+            allbudget = $('.allbudget').val();
+            maynus = (allbudget-forSum);
+            remeyning = accounting.formatMoney(maynus);
+            $('#remainingbudget').val(remeyning);
+            $('#trueamount').val(forSum);
     	});
         $('#myModalAdd').modal('hide');
     }
 });
-$("#packageTable").on("click","button.modalnow", function() {
+$("#myBudget").on("click","button.modalnow", function() {
         var rowNum = $(this).attr('id');
         var getContent = $(this).attr('searchfor');
         var priceTag = $(this).attr('priceTag');
@@ -367,9 +312,8 @@ $("#packageTable").on("click","button.modalnow", function() {
                     $('span[count='+colordisplay+']').hide();
                     $('span[display='+colordisplay+']').show();
                     $('span[color='+colordisplay+']').css("color","");
-                    $('#myModal').modal('hide');
                     var forSum = 0;
-                        $('.qty1').each(function() {
+                    $('.qty1').each(function() {
                         forSum += Number($(this).val().match(/\d+/));
                         var fixed = $('.iLoveCode').attr("iLoveCode");
                         var recentPrice = $('.iLoveCode').attr("sameprice");
@@ -377,20 +321,34 @@ $("#packageTable").on("click","button.modalnow", function() {
                         $('.originalvalue').val(originalround);
                         rounded = accounting.formatMoney(forSum);
                         $('.totalthisnow').val(rounded);
+                        allbudget = $('.allbudget').val();
+                            maynus = (allbudget-forSum);
+                            remeyning = accounting.formatMoney(maynus);
+                            $('#remainingbudget').val(remeyning);
                         $('#trueamount').val(forSum);
                     });
+                    $('#myModal').modal('hide');
                 }
             });
         return true;
 });
-        var forSum = 0;
-            $('.qty1').each(function() {
-            forSum += Number($(this).val().match(/\d+/));
-            var fixed = $('.iLoveCode').attr("iLoveCode");
-            var recentPrice = $('.iLoveCode').attr("sameprice");
-            var originalround = accounting.formatMoney(forSum);
-            $('.originalvalue').val(originalround);
-            rounded = accounting.formatMoney(forSum);
-            $('.totalthisnow').val(rounded);
+if($('.totalthisnow').val() > 500){
+    $('.proceedcustomize').prop('disabled',false);
+} else {
+    $('.proceedcustomize').prop('disabled',true);
+}
+var forSum = 0;
+    $('.qty1').each(function() {
+        forSum += Number($(this).val().match(/\d+/));
+        var fixed = $('.iLoveCode').attr("iLoveCode");
+        var recentPrice = $('.iLoveCode').attr("sameprice");
+        var originalround = accounting.formatMoney(forSum);
+        $('.originalvalue').val(originalround);
+        rounded = accounting.formatMoney(forSum);
+        $('.totalthisnow').val(rounded);
+        allbudget = $('.allbudget').val();
+            maynus = (allbudget-forSum);
+            remeyning = accounting.formatMoney(maynus);
+            $('#remainingbudget').val(remeyning);
             $('#trueamount').val(forSum);
-        });
+    });

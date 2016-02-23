@@ -21,7 +21,7 @@ if(isset($_POST['accept'])){
   if($qry){
     while($fortext=mysql_fetch_array($tex)){
     $mnumber=$fortext['r_person_contact'];
-    $sms = itexmo($mnumber,"Your request has been approved.","091683346637PH8MPZ9");
+    $sms = itexmo($mnumber,"Your request has been approved.","099969793775_A42l5");
     echo $sms;
     }
     $alert= "<script language=javascript>
@@ -47,7 +47,7 @@ if(isset($_POST['decline'])){
   if($qry){
     while($fortext=mysql_fetch_array($tex)){
     $mnumber=$fortext['r_person_contact'];
-    $sms = itexmo($mnumber,"Your request has been denied.","091683346637PH8MPZ9");
+    $sms = itexmo($mnumber,"Your request has been denied.","099969793775_A42l5");
     echo $sms;
     }
     $alert= "<script language=javascript>

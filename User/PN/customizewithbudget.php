@@ -14,8 +14,9 @@
 <?php
 include('../../connection.php');
 if(isset($_POST['packageid'])){
+    $budget = $_POST['budget'];
     echo "<form method='POST' action='review.php'>";
-    echo "<table class='table-striped striped' width='100%' id='packageTable'>
+    echo "<table class='table-striped striped' width='100%' id='myBudget'>
             <tbody>
                 <tr>
                     <th width='20%'>Item Description</th>
@@ -79,12 +80,18 @@ if(isset($_POST['packageid'])){
               <div class='col-lg-12' align='right' style='margin-left:45px;margin-top:20px;'>
                 <hr>
                 <div>
+                    <span>Budget:</span> Php <input type='text' class='asd allbudget' value='".number_format($budget,2)."' readonly>
+                </div>
+                <div>
                     <span>Total Package Price:</span> Php <input type='text' class='asd totalthisnow' value='".number_format($itemOriginal,2)."' readonly>
                     <input style='display:none' name='totalamount' value='' id='trueamount'>
                 </div>
+                <div>
+                    <span>Remaining Budget:</span> Php <input type='text' class='asd' id='remainingbudget' value='".number_format($budget-$priceThis,2)."' readonly>
+                </div>
               </div>";
         echo "<div class='col-lg-12' style='padding-top:20px' align='center'>
-                <button type='submit' class='btn btn-success btn-md' name='proceed'>Proceed</button>
+                <button type='submit' class='btn btn-success btn-md proceedcustomize' name='proceed'>Proceed</button>
                 </form>
                 <a class='btn btn-danger btn-md cancelcustomize'>Cancel</a>
               </div>";
@@ -210,6 +217,6 @@ if(isset($_POST['packageid'])){
         </div>
 <script src="numberformatting.js"></script>
 <script src="packageselect.js"></script>
-
+<script src="packageselectwithbudget.js"></script>
 </body>
 </html>

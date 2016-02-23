@@ -22,16 +22,23 @@ $('#numberguest').keypress(function(){
 $('#numberguest').keyup(function(){
 	var value = $(this).val();
 	$(this).attr('originalvalue', value);
+	var kids = $('#numberkids').val();
 	if(!isNaN(value)){
 		$('#checkkids').show('slide' , { direction:'up' } , 300);
 	}
 	if(value == ''){
 		$('#checkkids').hide('slide' , { direction:'up' } , 300);
 	}
+	if(!isNaN(kids)){
+		totaladult = value - kids;
+		$('#numberadults').val(totaladult);
+	} else {
+		$('#numberadults').val(value);
+	}
 });
 $('#kids').change(function(){
 	if((this).checked) {
-		$('#numberguest').attr('readonly',true);
+		$('#numberkids').prop('disabled',false);
 		$('#numberkids').val('');
 		$('#forkids').show('slide' , { direction:'up' } , 500);
 		$('#numberkids').on('keyup',function(){
@@ -39,9 +46,9 @@ $('#kids').change(function(){
 			var kids = $(this).val();
 			var guest = parseInt(original) - parseInt(kids);
 			if(!isNaN(guest)){
-				$('#numberguest').val(guest);
+				$('#numberadults').val(guest);
 			} else {
-				$('#numberguest').val(original);
+				$('#numberadults').val(original);
 			}
 		});
 	} else {

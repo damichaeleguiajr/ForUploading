@@ -71,7 +71,7 @@ if(isset($_SESSION['motif'])){
             var txt;
             var r = confirm("Are you sure you want to logout?");
             if (r == true) {
-                location.href='logout.php';
+                location.href='../logout.php';
             }
         };
         window.addEventListener("beforeunload", function (e) {
@@ -176,44 +176,49 @@ if(isset($_SESSION['motif'])){
                     </nav>
                     <div class="content-wrap"  style='border:1px solid #e7ecea;font-size:17px' id=''>
                         <section id="section-underline-1">
-                            <ul id="toggle-view" class="scroll containspackages">
-                                <?php
-                                  $thisqry = mysql_query("SELECT * FROM packages_tbl WHERE pk_category = '$type'");
-                                            while($etopo = mysql_fetch_array($thisqry)){
-                                            $_id = $etopo['pk_id'];
-                                            echo "<li>";
-                                                echo "<h3>".$etopo['pk_name']."&nbsp(₱".$etopo['pk_price'].")</h3>";
-                                                echo "<span>Click to view details  +</span>";
-                                                echo "<div class = 'panel'>";
-                                                echo "<table width='100%' class='table-striped'>";
-                                                echo "<tbody>";
-                                                echo "<tr>";
-                                                    echo "<th class='forselectpackage'>Item Description</th>";
-                                                    echo "<th class='forselectpackage'>Individual Price</th>";
-                                                    echo "<th class='forselectpackage'>Item Quantity</th>";
-                                                echo "</tr>";
-                                                $content = $etopo['pk_content'];
-                                                $content1 = explode(",", $content);
-                                                $quantity = $etopo['pk_quan'];
-                                                $quantity1 = explode(",", $quantity);
-                                                    foreach(array_combine($content1,$quantity1) as $newcontent => $newquantity){
-                                                        echo "<tr class='forselectpackage'>";
-                                                        echo "<td width='40%'>".$newcontent."</td>";
-                                                            $qry = mysql_query("SELECT * FROM item_tbl WHERE i_name = '$newcontent'");
-                                                            while($row = mysql_fetch_array($qry)){
-                                                                echo "<td>Php ".number_format($row['i_price'],2)."</td>";
-                                                            }
-                                                        echo "<td>".$newquantity."</td>";
-                                                        echo "</tr>";
-                                                    }
-                                                echo "</tbody>";
-                                                echo "</table><br>";
-                                                echo "<button type='button' class='btn btn-info forselect' id='selectthis' value='".$_id."' price='".$etopo['pk_price']."'>Select/Customize this Package</button>";
-                                                echo "<br></div>";
-                                                echo "</li>";
-                                            }
-                                    ?>
+                            <div id='notbudget'>
+                                <ul id="toggle-view" class="scroll containspackages">
+                                    <?php
+                                      $thisqry = mysql_query("SELECT * FROM packages_tbl WHERE pk_category = '$type'");
+                                                while($etopo = mysql_fetch_array($thisqry)){
+                                                $_id = $etopo['pk_id'];
+                                                echo "<li>";
+                                                    echo "<h3>".$etopo['pk_name']."&nbsp(₱".$etopo['pk_price'].")</h3>";
+                                                    echo "<span>Click to view details  +</span>";
+                                                    echo "<div class = 'panel'>";
+                                                    echo "<table width='100%' class='table-striped'>";
+                                                    echo "<tbody>";
+                                                    echo "<tr>";
+                                                        echo "<th class='forselectpackage'>Item Description</th>";
+                                                        echo "<th class='forselectpackage'>Individual Price</th>";
+                                                        echo "<th class='forselectpackage'>Item Quantity</th>";
+                                                    echo "</tr>";
+                                                    $content = $etopo['pk_content'];
+                                                    $content1 = explode(",", $content);
+                                                    $quantity = $etopo['pk_quan'];
+                                                    $quantity1 = explode(",", $quantity);
+                                                        foreach(array_combine($content1,$quantity1) as $newcontent => $newquantity){
+                                                            echo "<tr class='forselectpackage'>";
+                                                            echo "<td width='40%'>".$newcontent."</td>";
+                                                                $qry = mysql_query("SELECT * FROM item_tbl WHERE i_name = '$newcontent'");
+                                                                while($row = mysql_fetch_array($qry)){
+                                                                    echo "<td>Php ".number_format($row['i_price'],2)."</td>";
+                                                                }
+                                                            echo "<td>".$newquantity."</td>";
+                                                            echo "</tr>";
+                                                        }
+                                                    echo "</tbody>";
+                                                    echo "</table><br>";
+                                                    echo "<button type='button' class='btn btn-info forselect' id='selectthis' value='".$_id."' price='".$etopo['pk_price']."'>Select/Customize this Package</button>";
+                                                    echo "<br></div>";
+                                                    echo "</li>";
+                                                }
+                                        ?>
                                 </ul>
+                            </div>
+                            <div id='budgeted' style='display: none'>
+
+                            </div>
                         </section>
                         <section id="section-underline-2">
                             <div class='col-lg-12' align='left' style='background-color: #f0f0f0;font-size: 25px;'>
@@ -348,16 +353,30 @@ if(isset($_SESSION['motif'])){
                 <div class='col-lg-6' style='display:none' id='allpackageselect'>
 
                 </div>
+                <div class='col-lg-6' style='display:none' id='budgetselectpackage'>
+
+                </div>
+                <div class='col-lg-6' style='display:none' id='budgetpackage'>
+                    <div class='form-group'>
+                        <input type='text' value='<?php echo $type; ?>' class='hide' id='forbudgettype'>
+                        <div class='div-header' style='background-color: #f0f0f0;padding:5px 5px 5px 5px;margin-bottom: 10px;'>
+                            <label clas='form-label col-md-offset-2'>Please Input Your Budget.</label>
+                        </div>
+                        <input class='form-control' type='text' id='inputbudget' name='budget' required><span style='color:red;display:inline'>* Required</span>
+                    </div>
+                </div>
                 <div class='col-lg-6 info' align='center' id='budgeting'>
                     <div class='col-lg-12' style='padding-top:40px;color:#fff'>
                         <p style='font-size:30px'>PLEASE SELECT A PACKAGE</p>
                         <p style='font-size:30px'>OR</p>
                         <hr>
-                        <a href='../Avail' class='btn btn-lg' style='color:#fff'>
-                            <span class='fa fa-pencil-square' style='font-size:50px'></span>
-                            <p>CLICK HERE TO CREATE PACKAGE</p>
-                            <p>(BUDGETING)</p>
-                        </a>
+                        <div>
+                        <hr>
+                            <a class='btn btn-lg col-lg-12' style='color:#fff' id='badyet'>
+                                <span class='fa fa-cart-arrow-down' style='font-size:50px'></span>
+                                <p>CLICK HERE BUDGET YOUR PARTY NEEDS</p>
+                            </a>
+                        </div><br><br><br><br><br><br>
                     </div>
                 </div>
             </div>

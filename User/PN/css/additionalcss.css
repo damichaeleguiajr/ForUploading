@@ -1,0 +1,29 @@
+.control-div{
+	padding-top: 30px;
+	font-size: 18px;
+}
+.control-div .form-control {
+	display: inline-block;
+	margin-top: 5px;
+}
+.control-div .display-none {
+	display: none;
+}
+.control-div span{
+	display: inherit;
+}
+.control-div label{
+	display: block;
+}
+.control-div input[type='text']{
+	width:40%;
+}
+.control-div .radiobutton{
+	margin-right: 20px;
+}
+.div-header{
+	background-color: #f0f0f0;
+	padding-top: 10px;
+	padding-bottom: 7px;
+	padding-left: 10px;
+}

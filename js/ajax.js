@@ -337,17 +337,6 @@ $("#packageTable").on("click","button.modalnow", function() {
                     $('input[forChangeIdInput='+rowNum+']').val(1);
                     $('#myModal').modal('hide');
                 }
-                 var forSum = 0;
-                $('.qty1').each(function() {
-                    $('#epalang').delay(1000).fadeOut().fadeIn('slow').stop();
-                    forSum += Number($(this).val().match(/\d+/));
-                    $('.totalthisnow').val(forSum);
-                });
-                if($('.totalthisnow').val() > 500){
-                $('.proceed').prop('disabled',false);
-                } else {
-                    $('.proceed').prop('disabled',true);
-                }
             });
     });
     $("#packageTable").on("click","button.deleteme", function() {

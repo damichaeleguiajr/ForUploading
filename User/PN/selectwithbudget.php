@@ -14,6 +14,7 @@
 <?php
 include('../../connection.php');
 if(isset($_POST['packageid'])){
+    $budget = $_POST['budget'];
     echo "<form method ='POST' action='review.php'>";
     echo "<table class='table-striped striped' width='100%'>
             <tr>
@@ -68,15 +69,21 @@ if(isset($_POST['packageid'])){
                 </div>
                 <hr>
                 <div>
+                    <span>Budget:</span> Php <input type='text' class='asd' value='".number_format($budget,2)."' readonly>
+                </div>
+                <div>
                     <span>Total Package Price:</span> Php <input type='text' class='asd' value='".number_format($priceThis,2)."' readonly>
                     <input style='display:none' name='totalamount' value='".$priceThis."'>
+                </div>
+                <div>
+                    <span>Remaining Budget:</span> Php <input type='text' class='asd' value='".number_format($budget-$priceThis,2)."' readonly>
                 </div>
               </div>";
         echo "<div class='col-lg-12' style='padding-top:20px' align='center'>
                 <button type='submit' class='btn btn-success btn-md' name='proceed'>Select this package and proceed</button>
                 </form>
-                <a class='btn btn-primary btn-md customize' id='".$packageid."'>Customize this package</a>
-                <a class='btn btn-danger btn-md cancelselector'>Cancel</a>
+                <a class='btn btn-primary btn-md customizewithbudget' id='".$packageid."' budget='".$budget."'>Customize this package</a>
+                <a class='btn btn-danger btn-md cancelselectbudget'>Cancel</a>
               </div>";
 }
 ?>
